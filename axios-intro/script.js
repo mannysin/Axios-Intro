@@ -21,14 +21,21 @@ $('#list').html("<ul id='the-ul'></ul>")
 const restCountriesApi = axios.create({
     baseURL: 'https://restcountries.eu/rest/v2/name/'
 });
-function getCountryInfo(theName) {
-    restCountriesApi.get(theName)
+function getCountryInfo(countryName) {
+    restCountriesApi.get(countryName)
     .then(responseFromAPI => {
         console.log('Response from API is: ', responseFromAPI.data);
         $("#singleCountry").append(`
-        <li>
-        ${responseFromAPI.data[0].name}
-        </li>
+        Your country is:
+        ${responseFromAPI.data[0].name}.
+        The capital of your country is: 
+        ${responseFromAPI.data[0].capital}.
+        Their population is:
+        ${responseFromAPI.data[0].population}.
+        The Flag looks like:
+
+        <img src='${responseFromAPI.data[0].flag}' width= 30vw height= 30vh>
+        
         `);
     })
     .catch(err => {
@@ -44,25 +51,30 @@ document.getElementById("theButton").onclick = function () {
 const capitalCountryAPI = axios.create({
     baseURL: "https://restcountries.eu/rest/v2/capital/"
 });
-function getCountryInfo(theName) {
+function getCapitalInfo(theName) {
     capitalCountryAPI
     .get(theName)
     .then(responseFromAPI => {
         console.log("Response from API is: ", responseFromAPI.data);
         $("#capitalCountry").append(
-            `The country of your capital is: 
-            ${responseFromAPI.data[0].name}
+            `Your country is:
             
+            The country of your capital is: 
+            ${responseFromAPI.data[0].name}.
+            Their population is:
+            ${responseFromAPI.data[0].population}.
+            The flag looks like:
+            <img url(${responseFromAPI.data[0].flag})>.
             `);
     })
     .catch(err => {
-        $("#capitalCountry").append(`This is not a country`);
+        $("#capitalCountry").append(`This is not a capital`);
         console.log("Error is: ", err);
     });
 }
 document.getElementById("secondButton").onclick = function() {
-    const country = document.getElementById("secondInput").value;
-    getCountryInfo(country);
+    const capital = document.getElementById("secondInput").value;
+    getCapitalInfo(capital);
 };
     
 
