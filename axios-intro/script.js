@@ -57,14 +57,13 @@ function getCapitalInfo(theName) {
     .then(responseFromAPI => {
         console.log("Response from API is: ", responseFromAPI.data);
         $("#capitalCountry").append(
-            `Your country is:
-            
+            `
             The country of your capital is: 
             ${responseFromAPI.data[0].name}.
             Their population is:
             ${responseFromAPI.data[0].population}.
             The flag looks like:
-            <img url(${responseFromAPI.data[0].flag})>.
+            <img src = '${responseFromAPI.data[0].flag}' width = 30vw height = 30vh>.
             `);
     })
     .catch(err => {
